@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oma Areena</title>
+    <style>
+        :root {
+            --bg-color: #0f1015;
+            --card-bg: #1a1c23;
+            --primary-color: #107c10; /* Yle-henkinen vihreä */
+            --text-color: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #14161d;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2d39;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        /* Pääsoitin-alue */
+        .player-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        video {
+            width: 100%;
+            max-height: 550px;
+            border-radius: 8px;
+            background-color: #000;
+        }
+
+        .video-info h1 {
+            margin: 15px 0 5px 0;
+            font-size: 24px;
+        }
+
+        .video-info p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Videolista / Kategoria */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #2a2d39;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+            border-color: var(--primary-color);
+        }
+
+        .thumbnail-placeholder {
+            width: 100%;
+            height: 145px;
+            background-color: #2a2d39;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+
+        .card-content span {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">OMA AREENA</div>
+        <div style="font-size: 14px; color: #a0a0a0;">Suora lähetys / Videokirjasto</div>
+    </header>
+
+    <div class="container">
+        <!-- Pääsoitin -->
+        <div class="player-section">
+            <video id="mainPlayer" controls poster="">
+                <!-- Tähän tulee oletusvideo, kun sivu avataan -->
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Selaimesi ei tue videotoistinta.
+            </video>
+            <div class="video-info">
+                <h1 id="videoTitle">Valitse video listasta</h1>
+                <p id="videoDesc">Klikkaa alempana olevaa videota aloittaaksesi katselun.</p>
+            </div>
+        </div>
+
+        <!-- Videolista -->
+        <h2>Uusimmat videot ja jaksot</h2>
+        <div class="video-grid">
+            
+            <!-- Video 1 -->
+            <div class="video-card" onclick="changeVideo('https://www.w3schools.com/html/mov_bbb.mp4', 'Big Buck Bunny (Esimerkki)', 'Hauska animaatioesimerkki omasta kirjastostasi.')">
+                <div class="thumbnail-placeholder">▶ Katso video</div>
+                <div class="card-content">
+                    <h3>Big Buck Bunny</h3>
+                    <span>Kesto: 0:10 • Lisätty tänään</span>
+                </div>
+            </div>
+
+            <!-- Video 2 (Voit kopioida tämän lohkon aina kun lisäät uuden videon) -->
+            <div class="video-card" onclick="changeVideo('https://www.w3schools.com/html/movie.mp4', 'Esittelyvideo Osa 2', 'Toinen testivideo suoratoistopalvelua varten.')">
+                <div class="thumbnail-placeholder">▶ Katso video</div>
+                <div class="card-content">
+                    <h3>Esittelyvideo Osa 2</h3>
+                    <span>Kesto: 0:46 • Lisätty eilen</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function changeVideo(videoSrc, title, desc) {
+            const player = document.getElementById('mainPlayer');
+            const titleElement = document.getElementById('videoTitle');
+            const descElement = document.getElementById('videoDesc');
+
+            player.src = videoSrc;
+            titleElement.innerText = title;
+            descElement.innerText = desc;
+            
+            player.play();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
